@@ -1,0 +1,24 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "YelpCamp",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc-watch",
+    "start": "nodemon build/app.js"
+  },
+  "author": "Espen S R",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.1",
+    "body-parser": "^1.19.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3",
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "tsc-watch": "^4.0.0"
+  }
+}
