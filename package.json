@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc-watch",
-    "start": "nodemon build/app.js"
+    "start": "nodemon --exec \"ts-node --files\" ./app.ts",
+    "start:old": "nodemon build/app.js"
   },
   "author": "Espen S R",
   "license": "ISC",
