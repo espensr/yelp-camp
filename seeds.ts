@@ -1,6 +1,6 @@
 import CampgroundDto from "./dtos/campgroundDto";
-const Campground = require("./models/campground");
-const UserComment = require("./models/userComment");
+var Campground  = require("./models/campground"),
+    UserComment = require("./models/userComment");
  
 const data: CampgroundDto[] = [
     {
@@ -43,40 +43,41 @@ const data: CampgroundDto[] = [
 const seedDB = () => {
    //Remove all campgrounds
    Campground.deleteMany({}, (err: any) => {
-        if(err){
-            console.log(err);
-        }
-        console.log("removed campgrounds!");
-        UserComment.deleteMany({}, (err: any) => {
-            if(err){
-                console.log(err);
-            }
-            console.log("removed comments!");
-             //add a few campgrounds
-            data.forEach((seed: CampgroundDto) => {
-                Campground.create(seed, (err: any, campground: any) => {
-                    if(err){
-                        console.log(err)
-                    } else {
-                        console.log("added a campground");
-                        // create a comment
-                        UserComment.create(
-                            {
-                                text: "This place is great, but I wish there was internet",
-                                author: "Homer"
-                            }, (err: any, comment: any) => {
-                                if(err){
-                                    console.log(err);
-                                } else {
-                                    campground.comments.push(comment);
-                                    campground.save();
-                                    console.log("Created new comment");
-                                }
-                            });
-                    }
-                });
-            });
-        });
+        // if(err){
+        //     console.log(err);
+        // }
+        // console.log("removed campgrounds!");
+        // UserComment.deleteMany({}, (err: any) => {
+        //     if(err){
+        //         console.log(err);
+        //     }
+        //     console.log("removed comments!");
+        //      //add a few campgrounds
+        //     data.forEach((seed: CampgroundDto) => {
+        //         Campground.create(seed, (err: any, campground: any) => {
+        //             if(err){
+        //                 console.log(err)
+        //             } else {
+        //                 console.log("added a campground");
+        //                 // create a comment
+        //                 UserComment.create(
+        //                     {
+        //                         text: "This place is great, but I wish there was internet",
+        //                         author: "Homer"
+        //                     }, (err: any, comment: any) => {
+        //                         if(err){
+        //                             console.log(err);
+        //                         } else {
+        //                             campground.comments.push(comment);
+        //                             campground.save();
+        //                             console.log("Created new comment");
+        //                         }
+        //                     }
+        //                 );
+        //             }
+        //         });
+        //     });
+        // });
     }); 
     //add a few comments
 }
