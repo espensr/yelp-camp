@@ -1,11 +1,12 @@
-var express       = require("express"),
-    app           = express(),
-    mongoose      = require("mongoose"),
-    bodyParser    = require("body-parser"),
-    passport      = require("passport"),
-    LocalStrategy = require("passport-local"),
-    User          = require("./models/user"),
-    seedDB        = require("./seeds");
+var express        = require("express"),
+    app            = express(),
+    mongoose       = require("mongoose"),
+    bodyParser     = require("body-parser"),
+    passport       = require("passport"),
+    LocalStrategy  = require("passport-local"),
+    methodOverride = require("method-override"),
+    User           = require("./models/user"),
+    seedDB         = require("./seeds");
 
 // routes import
 var commentRoutes     = require("./routes/comments"),
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.set('views', './views');
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 // passport config
 app.use(require("express-session")({

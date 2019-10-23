@@ -1,14 +1,33 @@
 import CampgroundDto from "../dtos/campgroundDto";
 var express    = require("express"),
     router     = express.Router(),
-    Campground = require("../models/campground");
+    Campground = require("../models/campground"),
+    UserComment = require("../models/userComment");
 
-// middleware
+// middlewares
 const isLoggedIn = (req: any, res: any, next: any) => {
     if (req.isAuthenticated()) {
         return next();
     }
     res.redirect("/login");
+}
+
+const checkCampgroundOwnership = (req: any, res: any, next: any) => {
+    if (req.isAuthenticated()) {
+        Campground.findById(req.params.id, (err: any, foundCampground: any) => {
+            if (err) {
+                res.redirect("back");
+            } else {
+                if (foundCampground.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        res.redirect("back");
+    }
 }
 
 // Index
@@ -54,6 +73,41 @@ router.get("/:id", (req: any, res: any) => {
             console.log(err);
         } else {
             res.render("campgrounds/show", {campground: foundCampground});
+        }
+    });
+});
+
+// Edit
+router.get("/:id/edit", checkCampgroundOwnership, (req: any, res: any) => {
+    Campground.findById(req.params.id, (err: any, foundCampground: any) => {
+        res.render("campgrounds/edit", {campground: foundCampground});
+    });
+});
+
+// Update
+router.put("/:id", checkCampgroundOwnership, (req: any, res: any) => {
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err: any, updatedCampground: any) => {
+        if (err) {
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
+// destroy
+router.delete("/:id", checkCampgroundOwnership, (req: any, res: any) => {
+    Campground.findByIdAndRemove(req.params.id, (err: any, camggroundRemoved: any) => {
+        if (err) {
+            res.redirect("/campgrounds");
+        } else {
+            UserComment.deleteMany( {_id: { $in: camggroundRemoved.comments } }, (err: any) => {
+                if (err) {
+                    res.redirect("/campgrounds");        
+                } else {
+                    res.redirect("/campgrounds");
+                }
+            });
         }
     });
 });
