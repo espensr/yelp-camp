@@ -2,6 +2,7 @@ var express        = require("express"),
     app            = express(),
     mongoose       = require("mongoose"),
     bodyParser     = require("body-parser"),
+    flash          = require("connect-flash"),
     passport       = require("passport"),
     LocalStrategy  = require("passport-local"),
     methodOverride = require("method-override"),
@@ -26,6 +27,7 @@ app.set("view engine", "ejs");
 app.set('views', './views');
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // passport config
 app.use(require("express-session")({
@@ -39,8 +41,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// locals config
 app.use((req: any, res: any, next: any) => {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
