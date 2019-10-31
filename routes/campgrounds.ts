@@ -32,8 +32,6 @@ router.post("/", middleware.isLoggedIn, (req: any, res: any) => {
         id: req.user._id,
         username: req.user.username
     };
-    console.log("id", typeof author.id);
-    console.log("username", typeof author.username);
     const newCampground: CampgroundDto = {name, price, image, description, author};
 
     Campground.create(newCampground, (err: any, newlyCreated: CampgroundDto) => {

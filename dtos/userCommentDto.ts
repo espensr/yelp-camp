@@ -1,4 +1,7 @@
 export default interface UserCommentDto {
     text: String;
-    author: String;
+    author: {
+        id: string,
+        username: string
+    };
 }
