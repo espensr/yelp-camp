@@ -12,7 +12,7 @@ router.get("/", (req: any, res: any) => {
             req.flash("error", "Campgrounds not found");
             res.redirect("back");
         } else {
-            res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});
+            res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user, page: 'campgrounds'});
         }
     });
 });
