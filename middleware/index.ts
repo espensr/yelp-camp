@@ -1,5 +1,16 @@
 var Campground = require("../models/campground"),
-    UserComment = require("../models/userComment");
+    UserComment = require("../models/userComment"),
+    NodeGeocoder = require("node-geocoder");
+
+// google maps geocoder
+var options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+ 
+var geocoder = NodeGeocoder(options);
 
 
 const middlewareObj: any = {};
@@ -53,5 +64,31 @@ middlewareObj.isLoggedIn = (req: any, res: any, next: any) => {
     req.flash("error", "You need to be logged in to do that");
     res.redirect("/login");
 }
+
+middlewareObj.geocodeData = (req: any, res: any, next: any) => {
+    Campground.findById(req.params.id, (err: any, foundCampground: any) => {
+        if(err) {
+            req.flash("error", "Campground not found");
+            res.redirect("back");
+        } else {
+            if (foundCampground.location !== req.body.location) {
+                geocoder.geocode(req.body.location, (err: any, data: any) => {
+                    if (err || !data.length) {
+                      req.flash('error', 'Invalid address');
+                      return res.redirect('back');
+                    }
+                    req.body.campground.lat = data[0].latitude;
+                    req.body.campground.lng = data[0].longitude;
+                    req.body.campground.location = data[0].formattedAddress;
+                    console.log('geocoded data');
+                    return next();
+                });
+            } else {
+                return next();
+            }
+        }
+    });
+}
+
 
 module.exports = middlewareObj;

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express        = require("express"),
     app            = express(),
     mongoose       = require("mongoose"),
@@ -58,6 +60,6 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(3001, () => { 
-    console.log('Server listening on port 3001'); 
+app.listen(4001, () => { 
+    console.log('Server listening on port 4001'); 
 });

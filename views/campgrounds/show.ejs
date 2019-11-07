@@ -8,6 +8,7 @@
             <li class="list-group-item">Info 2</li>
             <li class="list-group-item">Info 3</li>
         </div>
+        <div id="map"></div>
     </div>
     <div class="col-md-9">
         <div class="thumbnail">
@@ -57,5 +58,39 @@
         </div>
     </div>
 </div>
+
+<script>
+  initMap = () => {
+    const lat = parseFloat('<%= campground.lat %>');
+    const lng = parseFloat(`<%= campground.lng %>`);
+    const center = {lat, lng};
+    const map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 9,
+        center: center,
+        scrollwheel: false,
+        streetViewControl: false,
+        mapTypeId: 'hybrid',
+        mapTypeControl: false
+    });
+    const contentString = `
+      <strong><%= campground.name %></strong><br />
+      <p><%= campground.location %><br />
+      $<%= campground.price %>/night</p>
+    `
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString,
+      visible: true
+    });
+    const marker = new google.maps.Marker({
+        position: center,
+        map: map
+    });
+    marker.addListener('click', () => {
+      infowindow.open(map, marker);
+    });
+    infowindow.open(map,marker);
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLGZqQ1qNyFiSIk1wTkSaxuIrTI_VCpG4&callback=initMap"></script>
 
 <% include ../partials/footer %>

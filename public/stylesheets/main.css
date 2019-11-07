@@ -9,4 +9,10 @@
   display: inline;
 }
 
+#map {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
 /*# sourceMappingURL=main.css.map */

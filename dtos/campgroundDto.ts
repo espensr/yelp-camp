@@ -5,6 +5,9 @@ export default interface CampgroundDto {
     price?: string;
     image: string;
     description: string;
+    location?: string;
+    lat?: number;
+    lng?: number;
     author?: {
         id: string;
         username: string;
