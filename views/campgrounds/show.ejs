@@ -4,14 +4,26 @@
     <div class="col-md-3">
         <p class="lead">YelpCamp</p>
         <div class="list-group">
-            <li class="list-group-item active">Info 1</li>
-            <li class="list-group-item">Info 2</li>
-            <li class="list-group-item">Info 3</li>
+            <li id="descriptionLink" class="list-group-item link active" onclick="changeContent('info')">Description</li>
+            <li id="mapLink" class="list-group-item link" onclick="changeContent('map')">Map</li>
         </div>
-        <div id="map"></div>
     </div>
     <div class="col-md-9">
-        <div class="thumbnail">
+        <div id="mapContent" class="thumbnail hidden">
+            <div id="map"></div>
+            <div class="caption">
+                <p>
+                    <em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
+                </p>
+                <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+                    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                    <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+        <div id="descriptionContent" class="thumbnail">
             <img class="img-responsive" src="<%= campground.image %>" alt="campground image">
             <div class="caption">
                 <h4 class="pull-right">$<%= campground.price %>/night</h4>
@@ -60,12 +72,26 @@
 </div>
 
 <script>
-  initMap = () => {
+    changeContent = (content) => {
+        // change active link
+        const links = document.getElementsByClassName("link");
+        for (const link of links) {
+            link.classList.remove("active");
+        }
+        const linkElement = content === 'info' ? document.getElementById("descriptionLink") : document.getElementById("mapLink");
+        linkElement.classList.add("active");
+        // change content
+        document.getElementById("descriptionContent").classList.add("hidden");
+        document.getElementById("mapContent").classList.add("hidden");
+        const contentElement = content === 'info' ? document.getElementById("descriptionContent") : document.getElementById("mapContent");
+        contentElement.classList.remove("hidden");
+    }
+    initMap = () => {
     const lat = parseFloat('<%= campground.lat %>');
     const lng = parseFloat(`<%= campground.lng %>`);
     const center = {lat, lng};
     const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 9,
+        zoom: 13,
         center: center,
         scrollwheel: false,
         streetViewControl: false,
@@ -73,23 +99,23 @@
         mapTypeControl: false
     });
     const contentString = `
-      <strong><%= campground.name %></strong><br />
-      <p><%= campground.location %><br />
-      $<%= campground.price %>/night</p>
+        <strong><%= campground.name %></strong><br />
+        <p><%= campground.location %><br />
+        $<%= campground.price %>/night</p>
     `
     const infowindow = new google.maps.InfoWindow({
-      content: contentString,
-      visible: true
+        content: contentString,
+        visible: true
     });
     const marker = new google.maps.Marker({
         position: center,
         map: map
     });
     marker.addListener('click', () => {
-      infowindow.open(map, marker);
+        infowindow.open(map, marker);
     });
     infowindow.open(map,marker);
-  }
+    }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLGZqQ1qNyFiSIk1wTkSaxuIrTI_VCpG4&callback=initMap"></script>
 
