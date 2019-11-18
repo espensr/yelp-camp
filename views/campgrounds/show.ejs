@@ -26,8 +26,8 @@
         <div id="descriptionContent" class="thumbnail">
             <img class="img-responsive" src="<%= campground.image %>" alt="campground image">
             <div class="caption">
-                <h4 class="pull-right">$<%= campground.price %>/night</h4>
-                <h4><a href="#"><%= campground.name %></a></h4>
+                <p class="pull-right" style="font-size: 1.5em"><strong>$ <%= campground.price %> / night</strong></p>
+                <h1 style="margin: 0px 0px 10px"><%= campground.name %></h1>
                 <p><%= campground.description %></p>
                 <p>
                     <em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
@@ -99,9 +99,9 @@
         mapTypeControl: false
     });
     const contentString = `
-        <strong><%= campground.name %></strong><br />
-        <p><%= campground.location %><br />
-        $<%= campground.price %>/night</p>
+        <p><strong><%= campground.name %></strong><br />
+        <%= campground.location %><br />
+        $ <%= campground.price %> / night</p>
     `
     const infowindow = new google.maps.InfoWindow({
         content: contentString,
