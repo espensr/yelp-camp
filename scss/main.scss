@@ -5,26 +5,40 @@
     }
 }
 
-.delete-form {
-    display: inline;
-}
-
 #map {
     height: 400px;
     width: 100%;
     margin-bottom: 20px;
 }
 
-.link {
-    cursor: pointer;
+.form {
+    width: 90%;
+    max-width: 360px; 
+    margin: 25px auto;
+}
+
+.delete-form {
+    display: inline;
+    margin-left: 8px;
+}
+
+.active {
+    cursor: default !important;
+    a {
+        cursor: default !important;
+    }
 }
 
 .hidden {
     display: none;
 }
 
-.form {
-    width: 90%;
-    max-width: 360px; 
-    margin: 25px auto;
+.inactive {
+    height: 50px;
+    padding: 15px;
+    color: #6C6C6C;
+}
+
+.backLink:hover {
+    text-decoration: none;
 }

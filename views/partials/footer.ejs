@@ -14,5 +14,15 @@
             crossorigin="anonymous"
         >
         </script>
+        <script>
+            const links = document.getElementsByClassName('backLink');
+            for (const link of links) {
+                link.setAttribute('href', document.referrer);
+                link.onclick = () => {
+                    history.back();
+                    return false;
+                }
+            }
+        </script>
     </body>
 </html>

@@ -57,14 +57,6 @@ middlewareObj.checkCommentOwnership = (req: any, res: any, next: any) => {
     }
 }
 
-middlewareObj.isLoggedIn = (req: any, res: any, next: any) => {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    req.flash("error", "You need to be logged in to do that");
-    res.redirect("/login");
-}
-
 middlewareObj.geocodeData = (req: any, res: any, next: any) => {
     Campground.findById(req.params.id, (err: any, foundCampground: any) => {
         if(err) {

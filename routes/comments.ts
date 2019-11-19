@@ -3,10 +3,11 @@ var express     = require("express"),
     router      = express.Router({mergeParams: true}),
     Campground  = require("../models/campground"),
     UserComment = require("../models/userComment"),
-    middleware  = require("../middleware");
+    middleware  = require("../middleware"),
+    connect = require("connect-ensure-login");
 
 // New
-router.get("/new", middleware.isLoggedIn, (req: any, res: any) => {
+router.get("/new", connect.ensureLoggedIn("/login"), (req: any, res: any) => {
     Campground.findById(req.params.id, (err: any, campground: CampgroundDto) => {
         if(err) {
             req.flash("error", "Campground not found");
@@ -18,7 +19,7 @@ router.get("/new", middleware.isLoggedIn, (req: any, res: any) => {
 })
 
 // Create
-router.post("/", middleware.isLoggedIn, (req: any, res: any) => {
+router.post("/", connect.ensureLoggedIn("/login"), (req: any, res: any) => {
     Campground.findById(req.params.id, (err: any, campground: any) => {
         if(err) {
             req.flash("error", "Campground not found");

@@ -4,7 +4,8 @@ var express     = require("express"),
     Campground  = require("../models/campground"),
     UserComment = require("../models/userComment"),
     middleware  = require("../middleware"),
-    NodeGeocoder = require("node-geocoder");
+    NodeGeocoder = require("node-geocoder"),
+    connect = require("connect-ensure-login");
 
 // google maps geocoder
 var options = {
@@ -29,12 +30,12 @@ router.get("/", (req: any, res: any) => {
 });
 
 // New
-router.get("/new", middleware.isLoggedIn, (req: any, res: any) => {
+router.get("/new", connect.ensureLoggedIn("/login"), (req: any, res: any) => {
     res.render("campgrounds/new");
 });
 
 // Create
-router.post("/", middleware.isLoggedIn, (req: any, res: any) => {
+router.post("/", connect.ensureLoggedIn("/login"), (req: any, res: any) => {
     // get data from form and add to campgrounds array
     const name: string = req.body.name;
     const price: string = req.body.price;

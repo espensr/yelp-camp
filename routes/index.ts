@@ -36,10 +36,10 @@ router.get("/login", (req: any, res: any) => {
 // login post
 router.post("/login", passport.authenticate("local", 
     {
-       successRedirect: "/campgrounds",
-       failureRedirect: "/login",
-       successFlash: "Logged in",
-       failureFlash: true
+        successReturnToOrRedirect: "/campgrounds",
+        failureRedirect: "/login",
+        successFlash: "Logged in",
+        failureFlash: true
     }), (req: any, res: any) => {
 });
 
