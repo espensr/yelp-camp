@@ -1,3 +1,74 @@
+.btn-primary {
+  color: #FFF;
+  background-color: #2F536F;
+  border-color: #2F536F;
+  background: #3e6e93;
+}
+.btn-primary:hover {
+  color: #FFF;
+  background-color: #2F536F;
+  border-color: #2F536F;
+}
+
+.btn-danger {
+  color: #FFF;
+  background-color: #BB3004;
+  border-color: #BB3004;
+  background: #d43605;
+}
+.btn-danger:hover {
+  color: #FFF;
+  background-color: #BB3004;
+  border-color: #BB3004;
+}
+
+.list-group-item:hover {
+  background-color: #EAF3F8 !important;
+}
+.list-group-item.active {
+  color: #FFF;
+  background-color: #2F536F !important;
+  background: #3e6e93 !important;
+}
+
+.navbar {
+  background-color: #f8f8fc;
+}
+.navbar a {
+  color: #666 !important;
+  background-color: #f8f8fc;
+  transition: background-color 0.5s, color 0.5s;
+}
+.navbar a:hover {
+  background-color: #EAF3F8 !important;
+}
+.navbar a.navbar-brand {
+  color: #BB3004 !important;
+  letter-spacing: 3px;
+  font-size: 1.5em;
+}
+.navbar a.navbar-brand:hover {
+  color: #FFF !important;
+  background-color: #BB3004 !important;
+  background: #d43605;
+}
+.navbar li.active a {
+  color: #2F536F !important;
+  background-color: #f8f8fc !important;
+  border-bottom: 1px solid #2F536F;
+}
+
+.jumbotron, .well {
+  background-color: #f8f8fc;
+}
+
+.active {
+  cursor: default !important;
+}
+.active a {
+  cursor: default !important;
+}
+
 body {
   background-color: #000;
 }
@@ -9,7 +80,7 @@ body {
   padding-top: 40vh;
 }
 #landing-header h1 {
-  color: #fff;
+  color: #FFF;
 }
 
 .slideshow {

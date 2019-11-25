@@ -16,7 +16,7 @@
                     <em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
                 </p>
                 <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                    <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
                     <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-danger">Delete</button>
                     </form>
@@ -33,7 +33,7 @@
                     <em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
                 </p>
                 <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                    <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                    <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
                     <form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
                         <button class="btn btn-danger">Delete</button>
                     </form>
@@ -42,7 +42,7 @@
         </div>
         <div class="well">
             <div class="text-right">
-                <a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
+                <a class="btn btn-primary" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
             </div>
             <hr>
             <% campground.comments.forEach((comment) => { %>
@@ -55,13 +55,13 @@
                         </p>
                         <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
                             <a 
-                                class="btn btn-sm btn-warning" 
+                                class="btn btn-primary btn-outline" 
                                 href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" 
                             >
                                 Edit
                             </a>
                             <form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-sm btn-danger">Delete</button>
+                                <button class="btn btn-danger btn-outline">Delete</button>
                             </form>
                         <% } %>
                     </div>
@@ -73,19 +73,22 @@
 
 <script>
     changeContent = (content) => {
-        // change active link
-        const links = document.getElementsByClassName("list-group-item");
-        for (const link of links) {
-            link.classList.remove("active");
-        }
         const linkElement = content === 'info' ? document.getElementById("descriptionLink") : document.getElementById("mapLink");
-        linkElement.classList.add("active");
-        // change content
-        document.getElementById("descriptionContent").classList.add("hidden");
-        document.getElementById("mapContent").classList.add("hidden");
-        const contentElement = content === 'info' ? document.getElementById("descriptionContent") : document.getElementById("mapContent");
-        contentElement.classList.remove("hidden");
+        if (linkElement.className !== 'list-group-item active') {
+            // change active link
+            const links = document.getElementsByClassName("list-group-item");
+            for (const link of links) {
+                link.classList.remove("active");
+            }
+            linkElement.classList.add("active");
+            // change content
+            document.getElementById("descriptionContent").classList.add("hidden");
+            document.getElementById("mapContent").classList.add("hidden");
+            const contentElement = content === 'info' ? document.getElementById("descriptionContent") : document.getElementById("mapContent");
+            contentElement.classList.remove("hidden");
+        }
     }
+    
     initMap = () => {
     const lat = parseFloat('<%= campground.lat %>');
     const lng = parseFloat(`<%= campground.lng %>`);

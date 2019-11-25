@@ -1,3 +1,5 @@
+@import 'partials/base.scss';
+
 .thumbnail {
     padding: 0;
     img {
@@ -22,13 +24,6 @@
     margin-left: 8px;
 }
 
-.active {
-    cursor: default !important;
-    a {
-        cursor: default !important;
-    }
-}
-
 .hidden {
     display: none;
 }
@@ -41,4 +36,24 @@
 
 .backLink:hover {
     text-decoration: none;
+}
+
+.btn-primary.btn-outline {
+    color: $color-primary;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid $color-primary;
+    &:hover {
+        color: #FFF;
+        background-color:$color-primary;
+    }
+}
+
+.btn-danger.btn-outline {
+    color: $color-danger;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid $color-danger;
+    &:hover {
+        color: #FFF;
+        background-color:$color-danger;
+    }
 }
