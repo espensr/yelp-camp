@@ -35,8 +35,8 @@
   background-color: #f8f8fc;
 }
 .navbar a {
+  font-size: 1.2em;
   color: #666 !important;
-  background-color: #f8f8fc;
   transition: background-color 0.5s, color 0.5s;
 }
 .navbar a:hover {
@@ -45,16 +45,18 @@
 .navbar a.navbar-brand {
   color: #BB3004 !important;
   letter-spacing: 3px;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 .navbar a.navbar-brand:hover {
   color: #FFF !important;
   background-color: #BB3004 !important;
   background: #d43605;
 }
+.navbar li.active a, .navbar li.disabled a {
+  background-color: #f8f8fc !important;
+}
 .navbar li.active a {
   color: #2F536F !important;
-  background-color: #f8f8fc !important;
   border-bottom: 1px solid #2F536F;
 }
 
@@ -62,10 +64,10 @@
   background-color: #f8f8fc;
 }
 
-.active {
+.active, .disabled {
   cursor: default !important;
 }
-.active a {
+.active a, .disabled a {
   cursor: default !important;
 }
 
