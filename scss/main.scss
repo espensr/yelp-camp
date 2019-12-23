@@ -7,6 +7,11 @@
     }
 }
 
+#imageGrid {
+    display: flex; 
+    flex-wrap: wrap;
+}
+
 #map {
     height: 400px;
     width: 100%;
@@ -14,6 +19,7 @@
 }
 
 .form {
+    position: relative;
     width: 90%;
     max-width: 360px; 
     margin: 25px auto;
@@ -36,6 +42,16 @@
 
 .backLink:hover {
     text-decoration: none;
+}
+
+.redirectLink {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 0;
+    a:hover {
+        text-decoration: none;
+    }
 }
 
 .btn-primary.btn-outline {
@@ -65,5 +81,69 @@
         right: 15px;
         top: 50%;
         transform: translate(0, -50%);
+    }
+}
+
+.centerText {
+    @include centerText;
+}
+
+.centerButtonLeft {
+    @include centerButton;
+}
+
+#campPrice {
+    font-size: 1.5em;
+    position: absolute; 
+    top: 12px; 
+    right: 9px;
+}
+
+@media screen and (max-width: 767px) {
+    #imageGrid > div {
+        width: 100%;
+    }
+
+    #campPrice {
+        position: initial;
+        float: none !important;
+    }
+
+    .commentHeader {
+        text-align: center;
+        strong {
+            display: block;
+        }
+        span {
+            float: none !important;
+        }
+    }
+
+    .alert, .responsiveText {
+        @include centerText;
+    }
+
+    .responsiveButtonLeft {
+        @include centerButton;
+    }
+    .responsiveButtonRight {
+        position: relative;
+        right: 50%;
+        transform: translate(50%, 0);
+    }
+    
+    .responsiveButtonLeftHalf {
+        position: relative;
+        left: 50%;
+        transform: translate(-110%, 0);
+    }
+    .responsiveButtonRightHalf {
+        position: absolute;
+        left: 50%;
+        transform: translate(10%, 0);
+    }
+
+    .delete-form {
+        margin: 0;
     }
 }

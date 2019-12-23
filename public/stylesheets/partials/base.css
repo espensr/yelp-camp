@@ -52,6 +52,12 @@
   background-color: #BB3004 !important;
   background: #d43605;
 }
+.navbar .navbar-toggle {
+  background-color: #f8f8fc !important;
+}
+.navbar .navbar-toggle:hover {
+  background-color: #EAF3F8 !important;
+}
 .navbar li.active a, .navbar li.disabled a {
   background-color: #f8f8fc !important;
 }
@@ -69,6 +75,27 @@
 }
 .active a, .disabled a {
   cursor: default !important;
+}
+
+@media screen and (max-width: 767px) {
+  #navbar {
+    padding: 0;
+  }
+  #navbar ul {
+    margin: 0;
+    text-align: center;
+  }
+  #navbar ul li {
+    border-bottom: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+  }
+  #navbar ul li a {
+    padding: 16px;
+  }
+  #navbar ul li.active a {
+    border-bottom: 1px solid #2F536F;
+    border-top: 1px solid #2F536F;
+  }
 }
 
 /*# sourceMappingURL=base.css.map */

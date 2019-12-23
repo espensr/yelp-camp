@@ -52,6 +52,12 @@
   background-color: #BB3004 !important;
   background: #d43605;
 }
+.navbar .navbar-toggle {
+  background-color: #f8f8fc !important;
+}
+.navbar .navbar-toggle:hover {
+  background-color: #EAF3F8 !important;
+}
 .navbar li.active a, .navbar li.disabled a {
   background-color: #f8f8fc !important;
 }
@@ -71,11 +77,36 @@
   cursor: default !important;
 }
 
+@media screen and (max-width: 767px) {
+  #navbar {
+    padding: 0;
+  }
+  #navbar ul {
+    margin: 0;
+    text-align: center;
+  }
+  #navbar ul li {
+    border-bottom: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+  }
+  #navbar ul li a {
+    padding: 16px;
+  }
+  #navbar ul li.active a {
+    border-bottom: 1px solid #2F536F;
+    border-top: 1px solid #2F536F;
+  }
+}
 .thumbnail {
   padding: 0;
 }
 .thumbnail img {
   width: 100%;
+}
+
+#imageGrid {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 #map {
@@ -85,6 +116,7 @@
 }
 
 .form {
+  position: relative;
   width: 90%;
   max-width: 360px;
   margin: 25px auto;
@@ -106,6 +138,16 @@
 }
 
 .backLink:hover {
+  text-decoration: none;
+}
+
+.redirectLink {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 0;
+}
+.redirectLink a:hover {
   text-decoration: none;
 }
 
@@ -137,6 +179,76 @@
   right: 15px;
   top: 50%;
   transform: translate(0, -50%);
+}
+
+.centerText {
+  text-align: center;
+}
+
+.centerButtonLeft {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#campPrice {
+  font-size: 1.5em;
+  position: absolute;
+  top: 12px;
+  right: 9px;
+}
+
+@media screen and (max-width: 767px) {
+  #imageGrid > div {
+    width: 100%;
+  }
+
+  #campPrice {
+    position: initial;
+    float: none !important;
+  }
+
+  .commentHeader {
+    text-align: center;
+  }
+  .commentHeader strong {
+    display: block;
+  }
+  .commentHeader span {
+    float: none !important;
+  }
+
+  .alert, .responsiveText {
+    text-align: center;
+  }
+
+  .responsiveButtonLeft {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .responsiveButtonRight {
+    position: relative;
+    right: 50%;
+    transform: translate(50%, 0);
+  }
+
+  .responsiveButtonLeftHalf {
+    position: relative;
+    left: 50%;
+    transform: translate(-110%, 0);
+  }
+
+  .responsiveButtonRightHalf {
+    position: absolute;
+    left: 50%;
+    transform: translate(10%, 0);
+  }
+
+  .delete-form {
+    margin: 0;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

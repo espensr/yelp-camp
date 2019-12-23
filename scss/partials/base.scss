@@ -3,6 +3,16 @@ $color-danger: #BB3004;
 $color-secondary: #EAF3F8;
 $color-tertiary: rgb(248, 248, 252);
 
+@mixin centerText {
+    text-align: center;
+}
+
+@mixin centerButton {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
 .btn-primary {
     color: #FFF;
     background-color: $color-primary;
@@ -58,6 +68,12 @@ $color-tertiary: rgb(248, 248, 252);
             }
         }
     }
+    .navbar-toggle {
+        background-color: $color-tertiary !important;
+        &:hover {
+            background-color: $color-secondary !important;
+        }
+    }
     li.active, li.disabled {
         a {
             background-color: $color-tertiary !important;
@@ -77,5 +93,26 @@ $color-tertiary: rgb(248, 248, 252);
     cursor: default !important;
     a {
         cursor: default !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #navbar {
+        padding: 0;
+        ul {
+            margin: 0;
+            text-align: center;
+            li {
+                border-bottom: 1px solid #DDD;
+                border-top: 1px solid #DDD;
+                a {
+                    padding: 16px;
+                }
+                &.active a {
+                    border-bottom: 1px solid $color-primary;
+                    border-top: 1px solid $color-primary;
+                }
+            }
+        }
     }
 }

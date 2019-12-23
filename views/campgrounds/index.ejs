@@ -2,15 +2,13 @@
 
 <header class="jumbotron">
     <div class="container">
-        <h1>Welcome to YelpCamp! <i class="fas fa-campground"></i></h1>
-        <p><em>View our gallery of campgrounds from all over the world. By signing up you can also add your own favorites!</em></p>
-        <p>
-            <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add New Campground</a>
-        </p>
+        <h1 class="centerText">Welcome to YelpCamp! <i class="fas fa-campground"></i></h1>
+        <p class="centerText"><em>View our gallery of campgrounds from all over the world. By signing up you can also add your own favorites!</em></p>
+        <a class="btn btn-primary btn-lg centerButtonLeft" href="/campgrounds/new">Add New Campground</a>
     </div>
 </header>
 
-<div class="row text-center" style="display: flex; flex-wrap: wrap;">
+<div class="row text-center" id="imageGrid">
     <% for (let i = campgrounds.length - 1; i >= 0 ; i--) { %>        
         <div class="col-md-3 col-sm-6">
             <div class="thumbnail">
