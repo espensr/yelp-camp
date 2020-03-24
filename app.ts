@@ -21,7 +21,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/yelp_camp");
+mongoose.connect(process.env.DATABASEURL);
 
 // app config
 app.use(bodyParser.urlencoded({extended: true}));
@@ -60,6 +60,6 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(4001, () => { 
-    console.log('Server listening on port 4001'); 
+app.listen(process.env.PORT, () => { 
+    console.log('Server is listening'); 
 });

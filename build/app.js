@@ -1,84 +1,46 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
-const mongoose = require("mongoose");
-const app = express_1.default();
+require('dotenv').config();
+var express = require("express"), app = express(), mongoose = require("mongoose"), bodyParser = require("body-parser"), flash = require("connect-flash"), passport = require("passport"), LocalStrategy = require("passport-local"), methodOverride = require("method-override"), User = require("./models/user"), seedDB = require("./seeds");
+// routes import
+var commentRoutes = require("./routes/comments"), campgroundRoutes = require("./routes/campgrounds"), indexRoutes = require("./routes/index");
+// mongoose config
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/yelp_camp");
-app.use(body_parser_1.default.urlencoded({ extended: true }));
+mongoose.connect(process.env.DATABASEURL);
+// app config
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.set('views', './views');
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
+app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
+app.use(flash());
+app.locals.moment = require('moment');
+// passport config
+app.use(require("express-session")({
+    secret: "Illuminati",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+// locals config
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
 });
-const Campground = mongoose.model("Campground", campgroundSchema);
-// Campground.create(
-//     {
-//         name: "Granite Hill", 
-//         image: "https://cdn.pixabay.com/photo/2015/11/07/11/39/camping-1031360__480.jpg",
-//         description: "This is a huge granite hill. No bathrooms. No water. beautiful granite!"
-//     }, (err: any, campground: any) => {
-//         if(err){
-//             console.log(err);
-//         } else {
-//             console.log("Newly Creeated Campground");
-//             console.log(campground);
-//         }
-//     });
-app.get("/", (req, res) => {
-    res.render("landing");
-});
-// const campgrounds: campground[] = [
-//     {name: "Salmon Creek", image: "https://cdn.pixabay.com/photo/2015/07/10/17/24/night-839807__480.jpg"},
-//     {name: "Granite Hill", image: "https://cdn.pixabay.com/photo/2015/11/07/11/39/camping-1031360__480.jpg"},
-//     {name: "Mountain Goat's Rest", image: "https://cdn.pixabay.com/photo/2018/12/24/22/19/camping-3893587__480.jpg"}
-// ]
-app.get("/campgrounds", (req, res) => {
-    Campground.find({}, (err, allCampgrounds) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render("index", { campgrounds: allCampgrounds });
-        }
-    });
-});
-app.post("/campgrounds", (req, res) => {
-    const name = req.body.name;
-    const image = req.body.image;
-    const description = req.body.description;
-    const newCampground = { name, image, description };
-    Campground.create(newCampground, (err, newlyCreated) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.redirect("/campgrounds");
-        }
-    });
-});
-app.get("/campgrounds/new", (req, res) => {
-    res.render("new");
-});
-app.get("/campgrounds/:id", (req, res) => {
-    Campground.findById(req.params.id, (err, foundCampground) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.render("show", { campground: foundCampground });
-        }
-    });
-});
-app.listen(3001, function () {
-    console.log('Server listening on port 3001');
+// refresh database
+// seedDB();
+// routes config
+app.use("/", indexRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/comments", commentRoutes);
+app.listen(process.env.PORT, () => {
+    console.log('Server is listening');
 });

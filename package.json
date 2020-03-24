@@ -5,9 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc:old": "tsc-watch",
+    "tsc:dev": "tsc-watch",
     "sass": "sass --watch scss:public/stylesheets",
-    "start": "nodemon --exec \"ts-node --files\" ./app.ts",
+    "start:dev": "nodemon --exec \"ts-node --files\" ./app.ts",
+    "start": "node build/app.js",
     "start:old": "nodemon build/app.js"
   },
   "author": "Espen S R",
