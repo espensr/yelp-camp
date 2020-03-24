@@ -27,7 +27,7 @@ mongoose.connect(process.env.DATABASEURL);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.set('views', './views');
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
 app.use(methodOverride("_method"));
 app.use(flash());
 app.locals.moment = require('moment');
