@@ -1,2 +1,3 @@
 # yelp-camp
-Fullstack application with Node/Express
+
+Fullstack campgrounds application with EJS/Typescript, Material-UI/Sass, Node/Express and mongoDB/mongoose
