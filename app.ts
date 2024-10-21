@@ -21,7 +21,7 @@ var commentRoutes = require('./routes/comments'),
 // mongoose.set('useFindAndModify', false)
 // mongoose.set('useCreateIndex', true)
 // mongoose.set('useUnifiedTopology', true)
-mongoose.connect('mongodb://localhost/yelp_camp')
+mongoose.connect(process.env.DATABASEURL)
 
 // app config
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -55,7 +55,7 @@ app.use((req: any, res: any, next: any) => {
 })
 
 // refresh database
-// seedDB();
+// seedDB()
 
 // routes config
 app.use('/', indexRoutes)

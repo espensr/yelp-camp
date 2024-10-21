@@ -19,86 +19,18 @@ var geocoder = NodeGeocoder(options)
 
 // Index
 router.get('/', (req: any, res: any) => {
-  //   Campground.find({})
-  //   Campground.find({}).then((err: any, allCampgrounds: CampgroundDto[]) => {
-  //     if (err) {
-  //       req.flash('error', 'Campgrounds not found')
-  //       res.redirect('back')
-  //     } else {
-  //       res.render('campgrounds/index', {
-  //         campgrounds: allCampgrounds,
-  //         currentUser: req.user,
-  //         page: 'campgrounds',
-  //       })
-  //     }
-  //   })
-  res.render('campgrounds/index', {
-    campgrounds: [
-      {
-        name: 'Tall Trees Forest',
-        image: 'https://farm4.staticflickr.com/3795/10131087094_c1c0a1c859.jpg',
-        description: 'Calm and quiet between the trees.',
-        price: '8',
-      },
-      {
-        name: "Mountain Goat's Rest",
-        image:
-          'https://cdn.pixabay.com/photo/2018/12/24/22/19/camping-3893587__480.jpg',
-        description: 'The perfect place for mountaineers.',
-        price: '10',
-      },
-      {
-        name: 'Granite Hill',
-        image:
-          'https://cdn.pixabay.com/photo/2015/11/07/11/39/camping-1031360__480.jpg',
-        description:
-          'An open clearing surrounded by trees and rugged mountains.',
-        price: '5',
-      },
-      {
-        name: 'Aurora Night',
-        image:
-          'https://cdn.pixabay.com/photo/2016/02/09/16/35/night-1189929__480.jpg',
-        description: 'Auroras almost every night!',
-        price: '15',
-      },
-      {
-        name: 'Salmon Creek',
-        image:
-          'https://cdn.pixabay.com/photo/2015/07/10/17/24/night-839807__480.jpg',
-        description: 'A quite fishing paradise.',
-        price: '12',
-      },
-      {
-        name: 'Desert Mesa',
-        image: 'https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg',
-        description:
-          'Warm during the day, cool during the night and beautiful sunsets in between.',
-        price: '5',
-      },
-      {
-        name: 'Sky View',
-        image:
-          'https://cdn.pixabay.com/photo/2017/06/17/03/17/gongga-snow-mountain-2411069__480.jpg',
-        description: 'For the admirers of aerial views.',
-        price: '10',
-      },
-    ],
-    currentUser: req.user,
-    page: 'campgrounds',
-  })
-  //   Campground.find({}, (err: any, allCampgrounds: CampgroundDto[]) => {
-  //     if (err) {
-  //       req.flash('error', 'Campgrounds not found')
-  //       res.redirect('back')
-  //     } else {
-  //       res.render('campgrounds/index', {
-  //         campgrounds: allCampgrounds,
-  //         currentUser: req.user,
-  //         page: 'campgrounds',
-  //       })
-  //     }
-  //   })
+  Campground.find({})
+    .then((allCampgrounds: any) => {
+      res.render('campgrounds/index', {
+        campgrounds: allCampgrounds,
+        currentUser: req.user,
+        page: 'campgrounds',
+      })
+    })
+    .catch((err: any) => {
+      req.flash('error', 'Campgrounds not found')
+      res.redirect('back')
+    })
 })
 
 // New
@@ -156,45 +88,15 @@ router.post('/', connect.ensureLoggedIn('/login'), (req: any, res: any) => {
 
 // Show
 router.get('/:id', (req: any, res: any) => {
-  res.render('campgrounds/show', {
-    campground: {
-      name: 'Desert Mesa',
-      image: 'https://farm6.staticflickr.com/5487/11519019346_f66401b6c1.jpg',
-      description:
-        'Warm during the day, cool during the night and beautiful sunsets in between.',
-      price: '5',
-      comments: [
-        {
-          text: 'Showcase comment',
-          author: {
-            id: '123',
-            username: 'Yelpcamp',
-          },
-        },
-        {
-          text: 'Showcase comment 2',
-          author: {
-            id: '123',
-            username: 'Yelpcamp',
-          },
-        },
-      ],
-      author: {
-        id: '123',
-        username: 'Yelpcamp',
-      },
-    },
-  })
-  //   Campground.findById(req.params.id)
-  //     .populate('comments')
-  //     .exec((err: any, foundCampground: CampgroundDto) => {
-  //       if (err) {
-  //         req.flash('error', 'Campground not found')
-  //         res.redirect('back')
-  //       } else {
-  //         res.render('campgrounds/show', { campground: foundCampground })
-  //       }
-  //     })
+  Campground.findById(req.params.id)
+    .populate('comments')
+    .then((foundCampground: CampgroundDto) => {
+      res.render('campgrounds/show', { campground: foundCampground })
+    })
+    .catch((err: any) => {
+      req.flash('error', 'Campground not found')
+      res.redirect('back')
+    })
 })
 
 // Edit

@@ -1,4 +1,4 @@
-<% include ../partials/header %>
+<%- include('../partials/header') %>
 
 <header class="jumbotron">
   <div class="container">
@@ -26,11 +26,16 @@
         <h4><%= campgrounds[i].name %></h4>
       </div>
       <p>
-        <a href="/campgrounds/123" class="btn btn-primary">More Info</a>
+        <a
+          href="/campgrounds/<%= campgrounds[i]._id %>"
+          class="btn btn-primary"
+        >
+          More Info
+        </a>
       </p>
     </div>
   </div>
   <% } %>
 </div>
 
-<% include ../partials/footer %>
+<%- include('../partials/footer') %>

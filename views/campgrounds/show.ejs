@@ -1,131 +1,189 @@
-<% include ../partials/header %>
+<%- include('../partials/header') %>
 
 <div class="row">
-    <div class="col-md-3">
-        <div class="list-group">
-            <a href="#" id="descriptionLink" class="list-group-item active" onclick="changeContent('info')">
-                Description <i class="fas fa-camera-retro"></i>
-            </a>
-            <a href="#" id="mapLink" class="list-group-item" onclick="changeContent('map')">
-                Map <i class="fas fa-map-marked-alt"></i>
-            </a>
-        </div>
+  <div class="col-md-3">
+    <div class="list-group">
+      <a
+        href="#"
+        id="descriptionLink"
+        class="list-group-item active"
+        onclick="changeContent('info')"
+      >
+        Description <i class="fas fa-camera-retro"></i>
+      </a>
+      <a
+        href="#"
+        id="mapLink"
+        class="list-group-item"
+        onclick="changeContent('map')"
+      >
+        Map <i class="fas fa-map-marked-alt"></i>
+      </a>
     </div>
-    <div class="col-md-9">
-        <div id="mapContent" class="thumbnail hidden">
-            <div id="map"></div>
-            <div class="caption">
-                <p class="responsiveText">
-                    <em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
-                </p>
-                <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                    <a class="btn btn-primary responsiveButtonLeftHalf" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                    <form class="delete-form responsiveButtonRightHalf" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                <% } %>
-            </div>
-        </div>
-        <div id="descriptionContent" class="thumbnail">
-            <img class="img-responsive" src="<%= campground.image %>" alt="campground image">
-            <div class="caption" style="position: relative;">
-                <h1 style="margin: 0px 0px 10px" class="responsiveText"><%= campground.name %></h1>
-                <p id="campPrice" class="pull-right responsiveText"><strong>$ <%= campground.price %> / night</strong></p>
-                <p class="responsiveText"><%= campground.description %></p>
-                <p class="responsiveText">
-                    <em>Submitted by <%= campground.author.username %>, <%= moment(campground.createdAt).fromNow() %></em>
-                </p>
-                <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-                    <a class="btn btn-primary responsiveButtonLeftHalf" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                    <form class="delete-form responsiveButtonRightHalf" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                <% } %>
-            </div>
-        </div>
-        <div class="well">
-            <div class="text-right">
-                <a class="btn btn-primary responsiveButtonRight" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment</a>
-            </div>
-            <hr>
-            <% campground.comments.forEach((comment) => { %>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="commentHeader">
-                            <strong><%= comment.author.username %></strong>
-                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
-                        </p>
-                        <p class="responsiveText">
-                            <%= comment.text %>
-                        </p>
-                        <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                            <a 
-                                class="btn btn-primary btn-outline responsiveButtonLeftHalf" 
-                                href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit" 
-                            >
-                                Edit
-                            </a>
-                            <form class="delete-form responsiveButtonRightHalf" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                <button class="btn btn-danger btn-outline">Delete</button>
-                            </form>
-                        <% } %>
-                    </div>
-                    <hr style="margin: 8px 0;">
-                </div>
-            <% }) %>
-        </div>
+  </div>
+  <div class="col-md-9">
+    <div id="mapContent" class="thumbnail hidden">
+      <div id="map"></div>
+      <div class="caption">
+        <p class="responsiveText">
+          <em
+            >Submitted by <%= campground.author.username %>, <%=
+            moment(campground.createdAt).fromNow() %></em
+          >
+        </p>
+        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+        <a
+          class="btn btn-primary responsiveButtonLeftHalf"
+          href="/campgrounds/<%= campground._id %>/edit"
+          >Edit</a
+        >
+        <form
+          class="delete-form responsiveButtonRightHalf"
+          action="/campgrounds/<%= campground._id %>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-danger">Delete</button>
+        </form>
+        <% } %>
+      </div>
     </div>
+    <div id="descriptionContent" class="thumbnail">
+      <img
+        class="img-responsive"
+        src="<%= campground.image %>"
+        alt="campground image"
+      />
+      <div class="caption" style="position: relative">
+        <h1 style="margin: 0px 0px 10px" class="responsiveText">
+          <%= campground.name %>
+        </h1>
+        <p id="campPrice" class="pull-right responsiveText">
+          <strong>$ <%= campground.price %> / night</strong>
+        </p>
+        <p class="responsiveText"><%= campground.description %></p>
+        <p class="responsiveText">
+          <em
+            >Submitted by <%= campground.author.username %>, <%=
+            moment(campground.createdAt).fromNow() %></em
+          >
+        </p>
+        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+        <a
+          class="btn btn-primary responsiveButtonLeftHalf"
+          href="/campgrounds/<%= campground._id %>/edit"
+          >Edit</a
+        >
+        <form
+          class="delete-form responsiveButtonRightHalf"
+          action="/campgrounds/<%= campground._id %>?_method=DELETE"
+          method="POST"
+        >
+          <button class="btn btn-danger">Delete</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <div class="well">
+      <div class="text-right">
+        <a
+          class="btn btn-primary responsiveButtonRight"
+          href="/campgrounds/<%= campground._id %>/comments/new"
+          >Add New Comment</a
+        >
+      </div>
+      <hr />
+      <% campground.comments.forEach((comment) => { %>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="commentHeader">
+            <strong><%= comment.author.username %></strong>
+            <span class="pull-right"
+              ><%= moment(comment.createdAt).fromNow() %></span
+            >
+          </p>
+          <p class="responsiveText"><%= comment.text %></p>
+          <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+          <a
+            class="btn btn-primary btn-outline responsiveButtonLeftHalf"
+            href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+          >
+            Edit
+          </a>
+          <form
+            class="delete-form responsiveButtonRightHalf"
+            action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-danger btn-outline">Delete</button>
+          </form>
+          <% } %>
+        </div>
+        <hr style="margin: 8px 0" />
+      </div>
+      <% }) %>
+    </div>
+  </div>
 </div>
 
 <script>
-    changeContent = (content) => {
-        const linkElement = content === 'info' ? document.getElementById("descriptionLink") : document.getElementById("mapLink");
-        if (linkElement.className !== 'list-group-item active') {
-            // change active link
-            const links = document.getElementsByClassName("list-group-item");
-            for (const link of links) {
-                link.classList.remove("active");
-            }
-            linkElement.classList.add("active");
-            // change content
-            document.getElementById("descriptionContent").classList.add("hidden");
-            document.getElementById("mapContent").classList.add("hidden");
-            const contentElement = content === 'info' ? document.getElementById("descriptionContent") : document.getElementById("mapContent");
-            contentElement.classList.remove("hidden");
-        }
+  changeContent = (content) => {
+    const linkElement =
+      content === 'info'
+        ? document.getElementById('descriptionLink')
+        : document.getElementById('mapLink')
+    if (linkElement.className !== 'list-group-item active') {
+      // change active link
+      const links = document.getElementsByClassName('list-group-item')
+      for (const link of links) {
+        link.classList.remove('active')
+      }
+      linkElement.classList.add('active')
+      // change content
+      document.getElementById('descriptionContent').classList.add('hidden')
+      document.getElementById('mapContent').classList.add('hidden')
+      const contentElement =
+        content === 'info'
+          ? document.getElementById('descriptionContent')
+          : document.getElementById('mapContent')
+      contentElement.classList.remove('hidden')
     }
+  }
 
-    initMap = () => {
-    const lat = parseFloat('<%= campground.lat %>');
-    const lng = parseFloat(`<%= campground.lng %>`);
-    const center = {lat, lng};
+  initMap = () => {
+    const lat = parseFloat('<%= campground.lat %>')
+    const lng = parseFloat(`<%= campground.lng %>`)
+    const center = { lat, lng }
     const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: center,
-        scrollwheel: false,
-        streetViewControl: false,
-        mapTypeId: 'hybrid',
-        mapTypeControl: false
-    });
+      zoom: 13,
+      center: center,
+      scrollwheel: false,
+      streetViewControl: false,
+      mapTypeId: 'hybrid',
+      mapTypeControl: false,
+    })
     const contentString = `
         <p><strong><%= campground.name %></strong><br />
         <%= campground.location %><br />
         $ <%= campground.price %> / night</p>
     `
     const infowindow = new google.maps.InfoWindow({
-        content: contentString,
-        visible: true
-    });
+      content: contentString,
+      visible: true,
+    })
     const marker = new google.maps.Marker({
-        position: center,
-        map: map
-    });
+      position: center,
+      map: map,
+    })
     marker.addListener('click', () => {
-        infowindow.open(map, marker);
-    });
-    infowindow.open(map,marker);
-    }
+      infowindow.open(map, marker)
+    })
+    infowindow.open(map, marker)
+  }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLGZqQ1qNyFiSIk1wTkSaxuIrTI_VCpG4&callback=initMap"></script>
+<script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLGZqQ1qNyFiSIk1wTkSaxuIrTI_VCpG4&callback=initMap"
+></script>
 
-<% include ../partials/footer %>
+<%- include('../partials/footer') %>

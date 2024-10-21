@@ -46,12 +46,35 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <% if(!currentUser){ %>
+            <li
+              class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"
+            >
+              <a
+                href="<%= typeof page !== 'undefined' && page === 'login' ? '#' : '/login' %>"
+              >
+                Login <i class="fas fa-user"></i>
+              </a>
+            </li>
+            <li
+              class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"
+            >
+              <a
+                href="<%= typeof page !== 'undefined' && page === 'register' ? '#' : '/register' %>"
+              >
+                Sign Up <i class="fas fa-user-plus"></i>
+              </a>
+            </li>
+            <% } else { %>
             <li class="disabled">
-              <a href="#"> Yelpcamp <i class="fas fa-user-circle"></i> </a>
+              <a href="#">
+                <%= currentUser.username %> <i class="fas fa-user-circle"></i>
+              </a>
             </li>
             <li>
               <a href="/logout"> Logout <i class="fas fa-sign-out-alt"></i> </a>
             </li>
+            <% } %>
           </ul>
         </div>
       </div>
