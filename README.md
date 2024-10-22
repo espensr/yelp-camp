@@ -34,12 +34,15 @@ https://github.com/user-attachments/assets/8108cf0d-c322-4d52-bad4-f79dfd81d97b
 
 ### Setup
 
-`npm run start:dev`
-
 Env vars:
 - `DATABASE_URL` (from MongoDB Atlas)
 - `GEOCODER_API_KEY` (from Google Maps)
 - `PORT` (4 digits)
 - `PASSPORT_SECRET` (string)
 
+Optional:
+- Uncomment `seedDB()` in `app.ts` to empty exisiting database and fill in some dummy data
+- Comment out again after running start script, to avoid accidently emptying the database again
+
+Start up locally: `npm run start:dev`
 
