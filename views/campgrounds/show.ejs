@@ -1,126 +1,131 @@
 <%- include('../partials/header') %>
 
-<div class="row">
-  <div class="col-md-3">
-    <div class="list-group">
-      <a
-        href="#"
-        id="descriptionLink"
-        class="list-group-item active"
-        onclick="changeContent('info')"
-      >
-        Description <i class="fas fa-camera-retro"></i>
-      </a>
-      <a
-        href="#"
-        id="mapLink"
-        class="list-group-item"
-        onclick="changeContent('map')"
-      >
-        Map <i class="fas fa-map-marked-alt"></i>
-      </a>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <div id="mapContent" class="thumbnail hidden">
-      <div id="map"></div>
-      <div class="caption">
-        <p class="responsiveText">
-          <em
-            >Submitted by <%= campground.author.username %>, <%=
-            moment(campground.createdAt).fromNow() %></em
-          >
-        </p>
-        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="list-group">
         <a
-          class="btn btn-primary responsiveButtonLeftHalf"
-          href="/campgrounds/<%= campground._id %>/edit"
-          >Edit</a
+          href="#"
+          id="descriptionLink"
+          class="list-group-item active"
+          onclick="changeContent('info')"
         >
-        <form
-          class="delete-form responsiveButtonRightHalf"
-          action="/campgrounds/<%= campground._id %>?_method=DELETE"
-          method="POST"
+          Description <i class="fas fa-camera-retro"></i>
+        </a>
+        <a
+          href="#"
+          id="mapLink"
+          class="list-group-item"
+          onclick="changeContent('map')"
         >
-          <button class="btn btn-danger">Delete</button>
-        </form>
-        <% } %>
+          Map <i class="fas fa-map-marked-alt"></i>
+        </a>
       </div>
     </div>
-    <div id="descriptionContent" class="thumbnail">
-      <img
-        class="img-responsive"
-        src="<%= campground.image %>"
-        alt="campground image"
-      />
-      <div class="caption" style="position: relative">
-        <h1 style="margin: 0px 0px 10px" class="responsiveText">
-          <%= campground.name %>
-        </h1>
-        <p id="campPrice" class="pull-right responsiveText">
-          <strong>$ <%= campground.price %> / night</strong>
-        </p>
-        <p class="responsiveText"><%= campground.description %></p>
-        <p class="responsiveText">
-          <em
-            >Submitted by <%= campground.author.username %>, <%=
-            moment(campground.createdAt).fromNow() %></em
-          >
-        </p>
-        <% if (currentUser && campground.author.id.equals(currentUser._id)) { %>
-        <a
-          class="btn btn-primary responsiveButtonLeftHalf"
-          href="/campgrounds/<%= campground._id %>/edit"
-          >Edit</a
-        >
-        <form
-          class="delete-form responsiveButtonRightHalf"
-          action="/campgrounds/<%= campground._id %>?_method=DELETE"
-          method="POST"
-        >
-          <button class="btn btn-danger">Delete</button>
-        </form>
-        <% } %>
-      </div>
-    </div>
-    <div class="well">
-      <div class="text-right">
-        <a
-          class="btn btn-primary responsiveButtonRight"
-          href="/campgrounds/<%= campground._id %>/comments/new"
-          >Add New Comment</a
-        >
-      </div>
-      <hr />
-      <% campground.comments.forEach((comment) => { %>
-      <div class="row">
-        <div class="col-md-12">
-          <p class="commentHeader">
-            <strong><%= comment.author.username %></strong>
-            <span class="pull-right"
-              ><%= moment(comment.createdAt).fromNow() %></span
+    <div class="col-md-9">
+      <div id="mapContent" class="thumbnail hidden">
+        <div id="map"></div>
+        <div class="caption">
+          <p class="responsiveText">
+            <em
+              >Submitted by <%= campground.author.username %>, <%=
+              moment(campground.createdAt).fromNow() %></em
             >
           </p>
-          <p class="responsiveText"><%= comment.text %></p>
-          <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+          <% if (currentUser && campground.author.id.equals(currentUser._id)) {
+          %>
           <a
-            class="btn btn-primary btn-outline responsiveButtonLeftHalf"
-            href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+            class="btn btn-primary responsiveButtonLeftHalf"
+            href="/campgrounds/<%= campground._id %>/edit"
+            >Edit</a
           >
-            Edit
-          </a>
           <form
             class="delete-form responsiveButtonRightHalf"
-            action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+            action="/campgrounds/<%= campground._id %>?_method=DELETE"
             method="POST"
           >
-            <button class="btn btn-danger btn-outline">Delete</button>
+            <button class="btn btn-danger">Delete</button>
           </form>
           <% } %>
         </div>
-        <hr style="margin: 8px 0" />
       </div>
-      <% }) %>
+      <div id="descriptionContent" class="thumbnail">
+        <img
+          class="img-responsive"
+          src="<%= campground.image %>"
+          alt="campground image"
+        />
+        <div class="caption" style="position: relative">
+          <h1 style="margin: 0px 0px 10px" class="responsiveText">
+            <%= campground.name %>
+          </h1>
+          <p id="campPrice" class="pull-right responsiveText">
+            <strong>$ <%= campground.price %> / night</strong>
+          </p>
+          <p class="responsiveText"><%= campground.description %></p>
+          <p class="responsiveText">
+            <em
+              >Submitted by <%= campground.author.username %>, <%=
+              moment(campground.createdAt).fromNow() %></em
+            >
+          </p>
+          <% if (currentUser && campground.author.id.equals(currentUser._id)) {
+          %>
+          <a
+            class="btn btn-primary responsiveButtonLeftHalf"
+            href="/campgrounds/<%= campground._id %>/edit"
+            >Edit</a
+          >
+          <form
+            class="delete-form responsiveButtonRightHalf"
+            action="/campgrounds/<%= campground._id %>?_method=DELETE"
+            method="POST"
+          >
+            <button class="btn btn-danger">Delete</button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <div class="well">
+        <div class="text-right">
+          <a
+            class="btn btn-primary responsiveButtonRight"
+            href="/campgrounds/<%= campground._id %>/comments/new"
+            >Add New Comment</a
+          >
+        </div>
+        <hr />
+        <% campground.comments.forEach((comment) => { %>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="commentHeader">
+              <strong><%= comment.author.username %></strong>
+              <span class="pull-right"
+                ><%= moment(comment.createdAt).fromNow() %></span
+              >
+            </p>
+            <p class="responsiveText"><%= comment.text %></p>
+            <% if (currentUser && comment.author.id.equals(currentUser._id)) {
+            %>
+            <a
+              class="btn btn-primary btn-outline responsiveButtonLeftHalf"
+              href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"
+            >
+              Edit
+            </a>
+            <form
+              class="delete-form responsiveButtonRightHalf"
+              action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE"
+              method="POST"
+            >
+              <button class="btn btn-danger btn-outline">Delete</button>
+            </form>
+            <% } %>
+          </div>
+          <hr style="margin: 8px 0" />
+        </div>
+        <% }) %>
+      </div>
     </div>
   </div>
 </div>
