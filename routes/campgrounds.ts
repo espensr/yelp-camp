@@ -34,8 +34,7 @@ router.get('/', (req: any, res: any) => {
 })
 
 // New
-router.get('/new', (req: any, res: any) => {
-  // router.get('/new', connect.ensureLoggedIn('/login'), (req: any, res: any) => {
+router.get('/new', connect.ensureLoggedIn('/login'), (req: any, res: any) => {
   res.render('campgrounds/new')
 })
 
@@ -50,40 +49,55 @@ router.post('/', connect.ensureLoggedIn('/login'), (req: any, res: any) => {
     id: req.user._id,
     username: req.user.username,
   }
-  geocoder.geocode(req.body.location, (err: any, data: any) => {
-    if (err || !data.length) {
-      console.log('err', err)
-      req.flash('error', 'Invalid address')
-      return res.redirect('back')
-    }
-    const lat = data[0].latitude
-    const lng = data[0].longitude
-    const location = data[0].formattedAddress
-    const newCampground = {
-      name,
-      price,
-      image,
-      description,
-      author,
-      location,
-      lat,
-      lng,
-    }
-    // Create a new campground and save to DB
-    Campground.create(
-      newCampground,
-      (err: any, newlyCreated: CampgroundDto) => {
-        if (err) {
-          req.flash('error', "Couldn't add campground")
-          res.redirect('back')
-        } else {
-          //redirect back to campgrounds page
-          req.flash('success', 'Campground added')
-          res.redirect('/campgrounds')
-        }
-      }
-    )
-  })
+  const newCampground = {
+    name,
+    price,
+    image,
+    description,
+    author,
+  }
+  // Create a new campground and save to DB
+  Campground.create(newCampground)
+    .then(() => {
+      //redirect back to campgrounds page
+      req.flash('success', 'Campground added')
+      res.redirect('/campgrounds')
+    })
+    .catch((err: any) => {
+      req.flash('error', "Couldn't add campground")
+      res.redirect('back')
+    })
+  // geocoder.geocode(req.body.location, (err: any, data: any) => {
+  //   if (err || !data.length) {
+  //     console.log('err', err)
+  //     req.flash('error', 'Invalid address')
+  //     return res.redirect('back')
+  //   }
+  //   const lat = data[0].latitude
+  //   const lng = data[0].longitude
+  //   const location = data[0].formattedAddress
+  //   const newCampground = {
+  //     name,
+  //     price,
+  //     image,
+  //     description,
+  //     author,
+  //     location,
+  //     lat,
+  //     lng,
+  //   }
+  //   // Create a new campground and save to DB
+  //   Campground.create(newCampground)
+  //     .then(() => {
+  //       //redirect back to campgrounds page
+  //       req.flash('success', 'Campground added')
+  //       res.redirect('/campgrounds')
+  //     })
+  //     .catch((err: any) => {
+  //       req.flash('error', "Couldn't add campground")
+  //       res.redirect('back')
+  //     })
+  // })
 })
 
 // Show
@@ -104,14 +118,14 @@ router.get(
   '/:id/edit',
   middleware.checkCampgroundOwnership,
   (req: any, res: any) => {
-    Campground.findById(req.params.id, (err: any, foundCampground: any) => {
-      if (err) {
+    Campground.findById(req.params.id)
+      .then((foundCampground: any) => {
+        res.render('campgrounds/edit', { campground: foundCampground })
+      })
+      .catch((err: any) => {
         req.flash('error', 'Campground not found')
         res.redirect('back')
-      } else {
-        res.render('campgrounds/edit', { campground: foundCampground })
-      }
-    })
+      })
   }
 )
 
@@ -119,22 +133,18 @@ router.get(
 router.put(
   '/:id',
   middleware.checkCampgroundOwnership,
-  middleware.geocodeData,
+  // middleware.geocodeData,
   (req: any, res: any) => {
-    Campground.findByIdAndUpdate(
-      req.params.id,
-      req.body.campground,
-      function (err: any, updatedCampground: any) {
-        if (err) {
-          req.flash('error', 'Campground not found')
-          res.redirect('back')
-        } else {
-          console.log('updated data')
-          req.flash('success', 'Campground updated')
-          res.redirect('/campgrounds/' + req.params.id)
-        }
-      }
-    )
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground)
+      .then(() => {
+        console.log('updated data')
+        req.flash('success', 'Campground updated')
+        res.redirect('/campgrounds/' + req.params.id)
+      })
+      .catch((err: any) => {
+        req.flash('error', 'Campground not found')
+        res.redirect('back')
+      })
   }
 )
 
@@ -143,28 +153,22 @@ router.delete(
   '/:id',
   middleware.checkCampgroundOwnership,
   (req: any, res: any) => {
-    Campground.findByIdAndRemove(
-      req.params.id,
-      (err: any, camggroundRemoved: any) => {
-        if (err) {
-          req.flash('error', "Couldn't delete campground")
-          res.redirect('back')
-        } else {
-          UserComment.deleteMany(
-            { _id: { $in: camggroundRemoved.comments } },
-            (err: any) => {
-              if (err) {
-                req.flash('error', "Couldn't delete associated comments")
-                res.redirect('back')
-              } else {
-                req.flash('success', 'Campground deleted')
-                res.redirect('/campgrounds')
-              }
-            }
-          )
-        }
-      }
-    )
+    Campground.findByIdAndDelete(req.params.id)
+      .then((camggroundRemoved: any) => {
+        UserComment.deleteMany({ _id: { $in: camggroundRemoved.comments } })
+          .then(() => {
+            req.flash('success', 'Campground deleted')
+            res.redirect('/campgrounds')
+          })
+          .catch((err: any) => {
+            req.flash('error', "Couldn't delete associated comments")
+            res.redirect('back')
+          })
+      })
+      .catch((err: any) => {
+        req.flash('error', "Couldn't delete campground")
+        res.redirect('back')
+      })
   }
 )
 

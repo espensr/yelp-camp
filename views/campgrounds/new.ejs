@@ -1,35 +1,73 @@
-<% include ../partials/header %>
+<%- include('../partials/header') %>
 
 <div class="row">
-    <h1 style="text-align: center;">Create a New Campground</h1>
-    <div class="form">
-        <form action="/campgrounds" method="POST">
-            <div class="form-group">
-                <label for="newName">Name</label>
-                <input required autofocus class="form-control" type="text" name="name" id="newName" placeholder="Camp Everest">
-            </div>
-            <div class="form-group">
-                <label for="newPrice">Price (USD/night)</label>
-                <input required class="form-control" type="number" name="price" id="newPrice" placeholder="2,49" min="0.00" step="0.01">
-            </div>
-            <div class="form-group">
-                <label for="newImage">Image</label>
-                <input required class="form-control" type="text" name="image" id="newImage" placeholder="https://example.com/photo.jpg">
-            </div>
-            <div class="form-group">
-                <label for="newDescription">Description</label>
-                <textarea required class="form-control" rows="3" name="description" id="newDescription" placeholder="write a description here.."></textarea>
-            </div>
-            <div class="form-group">
-                <label for="newLocation">Location</label>
-                <input required class="form-control" type="text" name="location" id="newLocation" placeholder="Yosemite National Park, CA">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Submit</button>
-            </div>
-        </form>
-        <a class="backLink">Go Back</a>
-    </div>
+  <h1 style="text-align: center">Create a New Campground</h1>
+  <div class="form">
+    <form action="/campgrounds" method="POST">
+      <div class="form-group">
+        <label for="newName">Name</label>
+        <input
+          required
+          autofocus
+          class="form-control"
+          type="text"
+          name="name"
+          id="newName"
+          placeholder="Camp Everest"
+        />
+      </div>
+      <div class="form-group">
+        <label for="newPrice">Price (USD/night)</label>
+        <input
+          required
+          class="form-control"
+          type="number"
+          name="price"
+          id="newPrice"
+          placeholder="2,49"
+          min="0.00"
+          step="0.01"
+        />
+      </div>
+      <div class="form-group">
+        <label for="newImage">Image</label>
+        <input
+          required
+          class="form-control"
+          type="text"
+          name="image"
+          id="newImage"
+          placeholder="https://example.com/photo.jpg"
+        />
+      </div>
+      <div class="form-group">
+        <label for="newDescription">Description</label>
+        <textarea
+          required
+          class="form-control"
+          rows="3"
+          name="description"
+          id="newDescription"
+          placeholder="write a description here.."
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="newLocation">Location</label>
+        <input
+          required
+          class="form-control"
+          type="text"
+          name="location"
+          id="newLocation"
+          placeholder="Yosemite National Park, CA"
+        />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Submit</button>
+      </div>
+    </form>
+    <a class="backLink">Go Back</a>
+  </div>
 </div>
 
-<% include ../partials/footer %>
+<%- include('../partials/footer') %>

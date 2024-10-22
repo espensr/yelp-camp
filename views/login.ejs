@@ -1,24 +1,41 @@
-<% include ./partials/header %>
+<%- include('./partials/header') %>
 
 <div class="row">
-    <h1 style="text-align: center">Login</h1>
-    <div class="form">
-        <form action="/login" method="POST">
-            <div class="form-group">
-                <label for="existingUsername">Username</label>
-                <input required autofocus class="form-control" type="text" name="username" id="existingUsername" placeholder="your username">
-            </div>
-            <div class="form-group">
-                <label for="existingPassword">Password</label>
-                <input required class="form-control" type="password" name="password" id="existingPassword" placeholder="your password">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-lg btn-primary btn-block">Login</button>
-            </div>
-        </form>
-        <a class="backLink">Go Back</a>
-        <p class="redirectLink"><span>Don't have a user yet? </span><a href="/register">Sign Up</a></p>
-    </div>
+  <h1 style="text-align: center">Login</h1>
+  <div class="form">
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label for="existingUsername">Username</label>
+        <input
+          required
+          autofocus
+          class="form-control"
+          type="text"
+          name="username"
+          id="existingUsername"
+          placeholder="your username"
+        />
+      </div>
+      <div class="form-group">
+        <label for="existingPassword">Password</label>
+        <input
+          required
+          class="form-control"
+          type="password"
+          name="password"
+          id="existingPassword"
+          placeholder="your password"
+        />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block">Login</button>
+      </div>
+    </form>
+    <a class="backLink">Go Back</a>
+    <p class="redirectLink">
+      <span>Don't have a user yet? </span><a href="/register">Sign Up</a>
+    </p>
+  </div>
 </div>
 
-<% include ./partials/footer %>
+<%- include('./partials/footer') %>
