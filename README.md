@@ -40,5 +40,6 @@ Env vars:
 - `DATABASE_URL` (from MongoDB Atlas)
 - `GEOCODER_API_KEY` (from Google Maps)
 - `PORT` (4 digits)
+- `PASSPORT_SECRET` (string)
 
 
