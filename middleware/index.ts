@@ -57,11 +57,8 @@ middlewareObj.checkCommentOwnership = (req: any, res: any, next: any) => {
 }
 
 middlewareObj.geocodeData = (req: any, res: any, next: any) => {
-  Campground.findById(req.params.id, (err: any, foundCampground: any) => {
-    if (err) {
-      req.flash('error', 'Campground not found')
-      res.redirect('back')
-    } else {
+  Campground.findById(req.params.id)
+    .then((foundCampground: any) => {
       if (foundCampground.location !== req.body.location) {
         geocoder.geocode(req.body.location, (err: any, data: any) => {
           if (err || !data.length) {
@@ -77,8 +74,11 @@ middlewareObj.geocodeData = (req: any, res: any, next: any) => {
       } else {
         return next()
       }
-    }
-  })
+    })
+    .catch((err: any) => {
+      req.flash('error', 'Campground not found')
+      res.redirect('back')
+    })
 }
 
 module.exports = middlewareObj
