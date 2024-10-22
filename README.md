@@ -1,12 +1,44 @@
 # yelp-camp
 
 Fullstack campgrounds application with database and authentication.
-Using EJS/Typescript, Material-UI/Sass, Node/Express and mongoDB/mongoose
+Using EJS/Typescript, Sass, Node/Express and MongoDB/mongoose
 
 Based on online course project, with extensions:
 
-- Typescript
-- Comments / documentation (see "seed.ts")
-- Improved landing page with image slider
-- New color theme
-- Google maps api
+## Code improvements
+
+- Typescript (see `seed.ts` and dtos folder)
+- Comments (see `seed.ts` and routes folder)
+
+
+## Animations and transitions
+
+https://github.com/user-attachments/assets/71d2b3f7-5bb0-49c0-b9f1-c015daaa7bab
+
+https://github.com/user-attachments/assets/8108cf0d-c322-4d52-bad4-f79dfd81d97b
+
+
+## New color theme, icons and layout
+
+<img width="640" alt="Campgrounds" src="https://github.com/user-attachments/assets/1f518a17-1ee6-4265-b7fe-8de395cf1181">
+
+<img width="640" alt="Campground-comments" src="https://github.com/user-attachments/assets/92532f53-1031-4ed7-82e7-54113faaf970">
+
+
+## Google maps api
+
+<img width="640" alt="Campground-edit" src="https://github.com/user-attachments/assets/a8ec3d7d-0c5b-48cb-8ce4-ad0b8f1c843d">
+
+<img width="640" alt="Campground-map" src="https://github.com/user-attachments/assets/dd9b516d-52e0-4012-a575-f4686c4ce1c8">
+
+
+### Setup
+
+`npm run start:dev`
+
+Env vars:
+- `DATABASE_URL` (from MongoDB Atlas)
+- `GEOCODER_API_KEY` (from Google Maps)
+- `PORT` (4 digits)
+
+
