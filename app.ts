@@ -35,7 +35,7 @@ app.locals.moment = require('moment')
 // passport config
 app.use(
   require('express-session')({
-    secret: 'Illuminati',
+    secret: process.env.PASSPORT_SECRET,
     resave: false,
     saveUninitialized: false,
   })
